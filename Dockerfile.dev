@@ -17,8 +17,8 @@ WORKDIR /app
 
 RUN install_packages python3-full pipx curl
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash
-RUN install_packages nodejs
+# RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash
+# RUN install_packages nodejs
 
 USER $userid
 RUN pipx_init.bsh $userid
