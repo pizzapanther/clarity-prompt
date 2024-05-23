@@ -10,6 +10,10 @@ pdm run dev
 pdm run test
 ```
 
+## API
+
+API Docs: http://localhost:8000/api/v1/docs
+
 ## Normalized vs DeNormalized
 
 During the discussions it came up of doing this prompt in a normalized vs a denormalized fashion and this solution was categorized as denormalized. However, the normalized version of this has about the same amount of repeating data. So it's really a discussion of Relational Data vs Non-Relational. This solution is partly non-relational because of how the conditions are stored.
