@@ -42,6 +42,8 @@ class DocumentRule(models.Model):
     'doc_request': 'Document Request',
   }
 
+  OPERATORS = ["AND", "OR"]
+
   CONDITIONS = {
     "new": {"date_joined__gt": datetime.datetime(2024, 1, 1)},
     "biz": {"username__startswith": "biz_"},
@@ -83,6 +85,7 @@ class DocumentRule(models.Model):
     #  {"type": "biz", "operator": "AND"},
     return cls.CONDITIONS[condition["type"]]
 
+    # possible expansion
     # {"field": "biz_owner__year", "comparison": "gte", "value": 2021, "operator": "AND"},
     # return {f"{condition["field"]}__{condition["comparison"]}": condition["value"]}
 

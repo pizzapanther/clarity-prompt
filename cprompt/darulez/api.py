@@ -11,7 +11,7 @@ router = Router()
 
 class ConditionSchema(Schema):
   type: Literal[tuple(DocumentRule.CONDITIONS.keys())]
-  operator: Optional[Literal["AND", "OR"]] = None
+  operator: Optional[Literal[tuple(DocumentRule.OPERATORS)]] = None
 
 
 class DocRuleScheam(ModelSchema):
