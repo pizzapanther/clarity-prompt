@@ -83,7 +83,7 @@ class DocumentRule(models.Model):
     #  {"type": "biz", "operator": "AND"},
     return cls.CONDITIONS[condition["type"]]
 
-    # {"field": "biz_owner", "comparison": "gte", "value": 2021, "operator": "AND"},
+    # {"field": "biz_owner__year", "comparison": "gte", "value": 2021, "operator": "AND"},
     # return {f"{condition["field"]}__{condition["comparison"]}": condition["value"]}
 
 
