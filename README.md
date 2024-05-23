@@ -10,6 +10,10 @@ pdm run dev
 pdm run test
 ```
 
+## Concept for Conditions and Rule Matching
+
+Conditions are stored arguments that can be passed into a Django QuerySet. QuerySets then use bitwise operators to AND/OR the querysets into one QuerySet. This gives you a QuerySet of all Users that match the conditions which is ANDed with the requested user to see if that particular User is returned.
+
 ## Libraries
 
 - Django Ninja: generate Open API based API and schema.
