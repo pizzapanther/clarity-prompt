@@ -7,9 +7,10 @@ RUN mkdir -p /app
 
 COPY group_init.bsh /usr/local/bin
 COPY user_init.bsh /usr/local/bin
+COPY pipx_init.bsh /usr/local/bin
+
 RUN group_init.bsh $groupid
 RUN user_init.bsh $userid $groupid
-RUN echo 'cprompt ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN chown -R $userid:$groupid /app
 WORKDIR /app
@@ -19,12 +20,5 @@ RUN install_packages python3-full pipx curl
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash
 RUN install_packages nodejs
 
-USER cprompt
-ENV HOME /home/cprompt
-RUN pipx ensurepath
-RUN pipx install pdm
-RUN pipx inject pdm pdm-django
-
-ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/cprompt/.local/bin:/app/node_modules/.bin
-RUN ln -s /app/.bash_history /home/cprompt/.bash_history
-RUN ln -s /app/.python_history /home/cprompt/.python_history
+USER $userid
+RUN pipx_init.bsh $userid
