@@ -10,6 +10,11 @@ pdm run dev
 pdm run test
 ```
 
+## Libraries
+
+- Django Ninja: generate Open API based API and schema.
+- PyTest: function based testing
+
 ## API
 
 API Docs: http://localhost:8000/api/v1/docs
