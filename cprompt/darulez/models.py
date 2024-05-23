@@ -16,10 +16,10 @@ class School(models.Model):
 
 
 class Application(models.Model):
-  STATUSES = (
-    ('new', 'New'),
-    ('submitted', 'Submitted'),
-  )
+  STATUSES = {
+    'new': 'New',
+    'submitted': 'Submitted',
+  }
 
   school = models.ForeignKey(School, on_delete=models.CASCADE)
   status = models.CharField(max_length=15, choices=STATUSES)
@@ -38,9 +38,9 @@ def app_submitted(sender, **kwargs):
 
 
 class DocumentRule(models.Model):
-  ACTIONS = (
-    ('doc_request', 'Document Request'),
-  )
+  ACTIONS = {
+    'doc_request': 'Document Request',
+  }
 
   CONDITIONS = {
     "new": {"date_joined__gt": datetime.datetime(2024, 1, 1)},
