@@ -81,7 +81,7 @@ def test_queryset_generator(client, django_user_model):
   u1.date_joined = datetime.datetime(2024, 5, 1, tzinfo=datetime.timezone.utc)
   u1.save()
 
-  u2 = User(username='biz_me_fam2021')
+  u2 = User(username='biz_me_2021')
   u2.date_joined = datetime.datetime(2024, 5, 1, tzinfo=datetime.timezone.utc)
   u2.save()
 
@@ -95,7 +95,7 @@ def test_queryset_generator(client, django_user_model):
       ]
     },
     {
-      "count": 0,
+      "count": 1,
       "values": [
         {"type": "new"},
         {"type": "biz", "operator": "AND"},
