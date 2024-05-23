@@ -1,0 +1,13 @@
+services:
+    django:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        command: /bin/bash
+        volumes:
+            - .:/app
+        ports:
+          - 8000:8000
+          - 1234:1234
+          - 5000:5000
+        shm_size: 4gb

@@ -1,0 +1,27 @@
+FROM bitnami/minideb:bookworm
+
+ARG userid
+ARG groupid
+
+RUN addgroup cprompt --gid $groupid
+RUN useradd -ms /bin/bash -u $userid -g $groupid cprompt
+RUN echo 'cprompt ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN mkdir -p /app
+RUN chown -R cprompt:cprompt /app
+WORKDIR /app
+
+RUN install_packages python3-full pipx curl
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash
+RUN install_packages nodejs
+
+USER cprompt
+ENV HOME /home/cprompt
+RUN pipx ensurepath
+RUN pipx install pdm
+RUN pipx inject pdm pdm-django
+
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/cprompt/.local/bin:/app/node_modules/.bin
+RUN ln -s /app/.bash_history /home/cprompt/.bash_history
+RUN ln -s /app/.python_history /home/cprompt/.python_history

@@ -1,0 +1,22 @@
+[project]
+name = "cprompt"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Paul Bailey", email = "paul@neutron.studio"},
+]
+dependencies = [
+    "django>=5.0.6",
+    "django-ninja>=1.1.0",
+]
+requires-python = "==3.11.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+[tool.pdm.scripts]
+_.env_file = ".env"
+dev = "python manage.py runserver 0.0.0.0:8000"
