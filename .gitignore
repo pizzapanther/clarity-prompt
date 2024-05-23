@@ -162,3 +162,4 @@ cython_debug/
 .pdm-python
 .bash_history
 .python_history
+*.backup
