@@ -5,9 +5,9 @@ ARG groupid
 
 RUN mkdir -p /app
 
-COPY group_init.bsh /usr/local/bin
-COPY user_init.bsh /usr/local/bin
-COPY pipx_init.bsh /usr/local/bin
+COPY scripts/group_init.bsh /usr/local/bin
+COPY scripts/user_init.bsh /usr/local/bin
+COPY scripts/pipx_init.bsh /usr/local/bin
 
 RUN group_init.bsh $groupid
 RUN user_init.bsh $userid $groupid
