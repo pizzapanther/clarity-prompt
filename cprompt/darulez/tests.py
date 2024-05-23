@@ -1,3 +1,4 @@
+import datetime
 import json
 import re
 
@@ -53,7 +54,13 @@ def test_querysets(django_user_model):
 
 
 @pytest.mark.django_db
-def test_user_count(client):
+def test_user_count(client, django_user_model):
+  User = django_user_model
+
+  u1 = User(username='biz_me')
+  u1.date_joined = datetime.datetime(2024, 5, 1, tzinfo=datetime.timezone.utc)
+  u1.save()
+
   data = {
     "conditions": [
       {"type": "new"},
@@ -63,4 +70,36 @@ def test_user_count(client):
   }
   resp = client.post('/api/v1/darulez/rule/user-count', json.dumps(data), content_type="application/json")
   assert resp.status_code == 200
-  assert resp.content == b"0"
+  assert resp.content == b"1"
+
+
+@pytest.mark.django_db
+def test_queryset_generator(client, django_user_model):
+  User = django_user_model
+
+  u1 = User(username='biz_me')
+  u1.date_joined = datetime.datetime(2024, 5, 1, tzinfo=datetime.timezone.utc)
+  u1.save()
+
+  conditions = [
+    {
+      "count": 1,
+      "values": [
+        {"type": "new"},
+        {"type": "biz", "operator": "AND"},
+        {"type": "fam2021", "operator": "OR"}
+      ]
+    },
+    {
+      "count": 0,
+      "values": [
+        {"type": "new"},
+        {"type": "biz", "operator": "AND"},
+        {"type": "fam2021", "operator": "AND"}
+      ]
+    }
+  ]
+
+  for cond in conditions:
+    qs = DocumentRule.conditions_queryset(cond['values'])
+    assert qs.count() == cond['count']
