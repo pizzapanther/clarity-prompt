@@ -61,27 +61,27 @@ class DocumentRule(models.Model):
     user = qs & User.objects.filter(user=application.user).first()
     return user
 
-  @staticmethod
-  def conditions_queryset(conditions):
+  @classmethod
+  def conditions_queryset(cls, conditions):
     queryset = None
 
-    for cond in self.conditions:
+    for cond in conditions:
       if queryset is None:
-        queryset = User.objects.filter(**self.qargs(cond))
+        queryset = User.objects.filter(**cls.qargs(cond))
 
       else:
         if cond['operator'] == "AND":
-          queryset = queryset & User.objects.filter(**self.qargs(cond))
+          queryset = queryset & User.objects.filter(**cls.qargs(cond))
 
         else:
-          queryset = queryset | User.objects.filter(**self.qargs(cond))
+          queryset = queryset | User.objects.filter(**cls.qargs(cond))
 
     return queryset
 
-  @staticmethod
-  def qargs(condition):
+  @classmethod
+  def qargs(cls, condition):
     #  {"type": "biz", "operator": "AND"},
-    return self.CONDITIONS[condition["type"]]
+    return cls.CONDITIONS[condition["type"]]
 
     # {"field": "biz_owner", "comparison": "gte", "value": 2021, "operator": "AND"},
     # return {f"{condition["field"]}__{condition["comparison"]}": condition["value"]}

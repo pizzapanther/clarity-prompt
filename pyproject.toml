@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "django>=5.0.6",
     "django-ninja>=1.1.0",
+    "pytest-django>=4.8.0",
 ]
 requires-python = "==3.11.*"
 readme = "README.md"
@@ -20,3 +21,8 @@ distribution = false
 [tool.pdm.scripts]
 _.env_file = ".env"
 dev = "python manage.py runserver 0.0.0.0:8000"
+test = "pytest -sx"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "cprompt.project.settings"
+python_files = ["tests.py", "test_*.py", "*_test.py", "testing/python/*.py"]

@@ -1,5 +1,5 @@
-from ninja import Router, ModelSchema
-
+from ninja import Router, ModelSchema, Schema
+from ninja.orm.fields import AnyObject
 from cprompt.darulez.models import DocumentRule, School
 
 
@@ -24,3 +24,13 @@ def add_rule(request, data: AddDocRuleScheam):
   rule.save()
 
   return rule
+
+
+class CountSchema(Schema):
+  conditions: AnyObject
+
+
+@router.post("/rule/user-count", response=int)
+def users_matching_conditions(request, data: CountSchema):
+  qs = DocumentRule.conditions_queryset(data.conditions)
+  return qs.count()
