@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from cprompt.darulez.models import School, Application, DocumentRule, DocumentRequest
 
+
 @admin.register(School)
 class SchoolAdmin(admin.ModelAdmin):
   list_display = ['name']
